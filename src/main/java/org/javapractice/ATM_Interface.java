@@ -1,10 +1,13 @@
 package org.javapractice;
 
 public interface ATM_Interface {
-    public double availableBalance();
-    public void deposit(int amount);
+    double availableBalance();
 
-    public void withdraw(int amount);
+    void deposit(double amount);
 
-    public void getPreviousTransaction();
+    void withdraw(double amount);
+
+    void displayPreviousTransactions();
+
+    void showMenu();
 }

@@ -3,110 +3,72 @@ package org.javapractice;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
+import java.util.HashMap;
 
-class BankAccount {
+public class BankAccount {
     private double balance;
-    private double depositAmnt;
-    private double withdrawAmnt;
-    int previousTransaction;
-    String customerName;
-    String customerId;
+    private double depositAmount;
+    private double withdrawAmount;
+    private String customerName;
+    private String customerId;
+    private static int atmPIN;
+
+    private final HashMap<String,Object> previousTransactions = new HashMap<>();
 
     public BankAccount(String name, String id) {
-        customerName = name;
-        customerId = id;
+        this.customerName = name;
+        this.customerId = id;
+        atmPIN = 12345;
     }
 
-    double availableBalance() {
+    public double getBalance() {
         return balance;
     }
-    void deposit(int amount) {
-        if (amount > 0) {
-            balance = balance + amount;
-            previousTransaction = amount;
-        }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
-    void withdraw(int amount) {
-        if (amount > 0) {
-            balance = balance - amount;
-            previousTransaction = -amount;
-        }
+    public double getDepositAmount() {
+        return this.depositAmount;
     }
 
-    void getPreviousTransaction() {
-        DateFormat date_format_obj = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+    public void setDepositAmount(double amount1) {
+        this.depositAmount = amount1;
+        System.out.println(depositAmount + " Successfully deposited!");
+    }
+
+    public double getWithdrawAmount() { return this.withdrawAmount;}
+
+    public void setWithdrawAmount(double amount2) {
+        withdrawAmount = amount2;
+        System.out.println("Please take " + withdrawAmount + " in cash below.");
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public static int getAtmPIN() {
+        return atmPIN;
+    }
+
+    public HashMap<String,Object> getPreviousTransactions() {
+        return this.previousTransactions;
+    }
+
+    public void setPreviousTransactions(Boolean deposit) {
+        DateFormat date_format_obj = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
         Date d = new Date();
-        if (previousTransaction > 0) {
-            System.out.println("Deposited: " + previousTransaction + " on " + date_format_obj.format(d));
-        } else if (previousTransaction < 0) {
-            System.out.println("Withdrawn: " + Math.abs(previousTransaction) + " on " + date_format_obj.format(d));
+
+        if (deposit) {
+            this.previousTransactions.put("Deposited: " + this.getDepositAmount(), date_format_obj.format(d));
         } else {
-            System.out.println("No recent transaction.");
+            this.previousTransactions.put("Withdrawn: " + this.getWithdrawAmount(), date_format_obj.format(d));
         }
-    }
-
-    void showMenu() {
-        char option = '\0';
-        Scanner s = new Scanner(System.in);
-
-        System.out.println("Welcome, " + customerName + "!");
-        System.out.println("Your ID is: " + customerId);
-        System.out.println();
-
-        do {
-            System.out.println("What would you like to do today?");
-            System.out.println("A. Check Balance");
-            System.out.println("B. Deposit");
-            System.out.println("C. Withdraw");
-            System.out.println("D. Previous Transaction");
-            System.out.println("E. Exit");
-            System.out.println();
-            System.out.println("=====================================");
-            System.out.println("Enter option: ");
-            option = Character.toUpperCase(s.next().charAt(0));
-
-
-            switch (option) {
-                case 'A':
-                    System.out.println("=====================================");
-                    System.out.println("Available Balance: " + availableBalance());
-                    System.out.println("=====================================");
-                    System.out.println();
-                    break;
-                case 'B':
-                    System.out.println("=====================================");
-                    System.out.println("Enter amount to deposit");
-                    System.out.println("=====================================");
-                    int amount = s.nextInt();
-                    deposit(amount);
-                    System.out.println();
-                    break;
-                case 'C':
-                    System.out.println("=====================================");
-                    System.out.println("Enter amount to withdraw");
-                    System.out.println("=====================================");
-                    int amount2 = s.nextInt();
-                    withdraw(amount2);
-                    System.out.println();
-                    break;
-                case 'D':
-                    System.out.println("=====================================");
-                    getPreviousTransaction();
-                    System.out.println("=====================================");
-                    System.out.println();
-                    break;
-                case 'E':
-                    System.out.println("*********************************");
-                    System.out.println("<----Please take your card---->");
-                    System.out.println("Thank you for banking with us!");
-                    System.out.println("*********************************");
-                    System.out.println();
-                    break;
-                default:
-                    System.out.println("Invalid Option. Please try again!");
-            }
-        } while (option != 'E');
     }
 }
