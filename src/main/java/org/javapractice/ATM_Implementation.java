@@ -86,7 +86,7 @@ public class ATM_Implementation implements ATM_Interface {
                 }
                 case 'C' -> {
                     System.out.println("=====================================");
-                    System.out.println("Enter amount to withdrawL");
+                    System.out.println("Enter amount to withdraw:");
                     System.out.println("=====================================");
                     double amount2 = s.nextInt();
                     this.withdraw(amount2);

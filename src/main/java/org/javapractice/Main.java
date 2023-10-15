@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        System.out.println("Welcome to Bank ATM");
+        System.out.println("Welcome to ACME Bank ATM");
         System.out.println("Enter PIN: ");
         int pin = s.nextInt();
 

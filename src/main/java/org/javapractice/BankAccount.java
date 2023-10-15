@@ -35,7 +35,7 @@ public class BankAccount {
 
     public void setDepositAmount(double amount1) {
         this.depositAmount = amount1;
-        System.out.println(depositAmount + " Successfully deposited!");
+        System.out.println(depositAmount + " successfully deposited!");
     }
 
     public double getWithdrawAmount() { return this.withdrawAmount;}
